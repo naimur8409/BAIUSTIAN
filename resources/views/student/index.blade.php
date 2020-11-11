@@ -117,10 +117,29 @@
                                                 </div>
                                             </div>
 
+
+
                                             <div class="row">
                                                 <div class="col-md-1 mt-3 mt-md-0">
                                                     <button class="btn btn-primary" type="submit">Create</button>
                                                 </div>
+                                            </div>
+                                        </form>
+                                        <hr>
+                                        <span class="text-center">Or Import file</span>
+                                        <hr>
+                                        <form action="{{ route('student.import') }}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <input name="file" class="form-control" type="file">
+                                                </div>
+                                                <br>
+                                                <div class="col-md-3">
+                                                    <button class="btn btn-primary" type="submit">Import File</button>
+
+                                                </div>
+
                                             </div>
                                         </form>
                                     </div>

@@ -56,9 +56,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $user = User::find(auth()->user()->id);
+        return view('user.profile',compact('user'));
     }
 
     /**
@@ -90,7 +91,7 @@ class UserController extends Controller
         $status = $user->update();
 
         if($status){
-            $user->roles()->sync('1');
+            $user->roles()->sync($request->role_id);
             session()->flash('success',"User Created sccessfully");
             return redirect()->back();
 
@@ -113,6 +114,16 @@ class UserController extends Controller
             session()->flash('success',"User deleted sccessfully");
             return redirect()->back();
 
+        }
+    }
+
+    public function pass(Request $request, $id){
+        $user = User::find($id);
+        $user->password = bcrypt($request->password) ;
+        $status = $user->update();
+        if($status){
+            session()->flash('success',"Password updated successfully");
+            return redirect()->back();
         }
     }
 }

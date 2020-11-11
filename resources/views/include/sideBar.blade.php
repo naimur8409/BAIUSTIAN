@@ -56,7 +56,7 @@
                 @endif
 
                     {{-- =================Course=========== --}}
-                @if(auth()->user()->hasRole('student') || auth()->user()->hasRole('faculty') )
+                @if(auth()->user()->hasRole('faculty') )
 
                         <li class="nav-item" >
                             <a class="nav-item-hold" href="{{ route('course.list') }}">
@@ -66,6 +66,12 @@
                 @endif
                     {{-- =================Result=========== --}}
                 @if(auth()->user()->hasRole('student'))
+                    <li class="nav-item" >
+                        <a class="nav-item-hold" href="{{ route('course.levelterm') }}">
+                            <i class="nav-icon i-Bar-Chart"></i><span class="nav-text">Courses</span>
+                        </a>
+                    </li>
+
                     <li class="nav-item" >
                         <a class="nav-item-hold" href="{{ route('result.myResult') }}">
                             <i class="nav-icon i-Bar-Chart"></i><span class="nav-text">My Result</span>
@@ -77,6 +83,12 @@
                             <i class="nav-icon i-Bar-Chart"></i><span class="nav-text">Notices</span>
                         </a>
                     </li>
+
+                    <li class="nav-item" >
+                        <a class="nav-item-hold" href="{{ route('account.my.due') }}">
+                            <i class="nav-icon i-Bar-Chart"></i><span class="nav-text">My Due</span>
+                        </a>
+                    </li>
                 @endif
 
                     {{-- =================Notice=========== --}}
@@ -86,6 +98,13 @@
                             <i class="nav-icon i-Bar-Chart"></i><span class="nav-text">Manage Notice</span>
                         </a>
                     </li>
+                        @if(auth()->user()->hasRole('faculty'))
+                    <li class="nav-item" >
+                        <a class="nav-item-hold" href="{{ route('attendance.courses') }}">
+                            <i class="nav-icon i-Bar-Chart"></i><span class="nav-text">Attandance</span>
+                        </a>
+                    </li>
+                        @endif
                 @endif
 
                 @if(auth()->user()->hasRole('admin'))
@@ -94,6 +113,14 @@
                         <a class="nav-item-hold" href="#">
                             <i class="nav-icon i-File-Clipboard-File--Text"></i>
                             <span class="nav-text">Result</span>
+                        </a>
+                        <div class="triangle"></div>
+                    </li>
+
+                    <li class="nav-item" data-item="account">
+                        <a class="nav-item-hold" href="#">
+                            <i class="nav-icon i-File-Clipboard-File--Text"></i>
+                            <span class="nav-text">Account</span>
                         </a>
                         <div class="triangle"></div>
                     </li>
@@ -160,6 +187,24 @@
                         <a href="{{ route('result.list') }}">
                             <i class="nav-icon i-File-Clipboard-Text--Image"></i>
                             <span class="item-name">Result Management</span>
+                        </a>
+                    </li>
+                </ul>
+
+                {{-- ==================Account================== --}}
+                <ul class="childNav" data-parent="account">
+
+                    <li class="nav-item">
+                        <a href="{{ route('due.index') }}">
+                            <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                            <span class="item-name">Due Type</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('account.index') }}">
+                            <i class="nav-icon i-File-Clipboard-Text--Image"></i>
+                            <span class="item-name">Account Management</span>
                         </a>
                     </li>
                 </ul>

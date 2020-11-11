@@ -8,6 +8,7 @@ use App\Faculty;
 use App\Semester;
 use App\Course;
 use App\User;
+use Auth;
 class HomeController extends Controller
 {
     /**
@@ -31,7 +32,11 @@ class HomeController extends Controller
         $semester = Semester:: all()->count();
         $faculty = Faculty:: all()->count();
         $course = Course:: all()->count();
+        $courses = Course:: all();
         $user = User:: all()->count();
-        return view('home',compact('student','faculty','semester','course','user'));
+        $id = auth()->user()->email;
+        $data = Faculty::where('email', $id)->first();
+        $student = Student::where('email', $id)->first();
+        return view('home',compact('student','faculty','semester','course','user','courses','data'));
     }
 }

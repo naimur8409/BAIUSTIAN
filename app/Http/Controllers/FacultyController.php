@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\FacultyImport;
+use App\Exports\FacultyExport;
 use App\Faculty;
 use App\User;
 use App\Role;
@@ -161,5 +163,16 @@ class FacultyController extends Controller
         }
         session()->flash('success',"Faculty Updated successfully");
         return redirect()->back();
+    }
+
+    public function import()
+    {
+        $status = Excel::import(new FacultyImport,request()->file('file'));
+        return back();
+    }
+
+    public function export()
+    {
+        return Excel::download(new FacultyExport, 'faculty-collection.xlsx');
     }
 }

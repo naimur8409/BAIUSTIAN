@@ -21,6 +21,7 @@ class CreateNoticesTable extends Migration
             $table->longText('text');
             $table->string('photo');
             $table->string('documents');
+            // $table->boolean('all')->default(0);
             $table->timestamps();
 
 

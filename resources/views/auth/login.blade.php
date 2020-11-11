@@ -1,13 +1,23 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
+<div class="container" >
+    <div class="row justify-content-center" >
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('BAIUSTIAN') }}</div>
+                <div class="card-header text-center">
+                    <div class="logo">
+                        <img src="{{ asset('images/baiust.png') }}" alt="">
+
+                    </div>
+                    <div>
+                        {{ __('BAIUSTIAN') }}
+                    </div>
+                </div>
+
 
                 <div class="card-body">
+
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 

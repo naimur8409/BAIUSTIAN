@@ -20,6 +20,9 @@ class CreateCourseFacultyTable extends Migration
 
             $table->foreign('faculty_id')->references('id')->on('faculties')->onDelete('cascade');
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
+
+            $table->primary(['faculty_id','course_id']);
+
         });
     }
 

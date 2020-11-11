@@ -43,21 +43,24 @@
                             <div class="col-md-12 mb-4">
                                 <div class="card text-left">
                                     <div class="card-body">
-                                        <h4 class="card-title mb-3">Student Result</h4>
+                                        @if($gpa != '')
+                                        <span class="card-title mb-3 ">Result of {{ $lt->levelterm}}  </span>
+                                        <span class="card-title mb-3 " style="float: right;">GPA {{ $gpa}} </span>
+                                        @endif
                                         <div class="table-responsive">
                                             <table class="display table table-striped table-bordered" id="zero_configuration_table" style="width:100%">
                                                 <thead>
                                                     <tr>
                                                         <th>#SL</th>
                                                         <th>Student_id</th>
-                                                        <th>Level Term</th>
+
                                                         <th>Course Code</th>
+                                                        <th>Credit</th>
                                                         <th>Taken By</th>
                                                         <th>Semester</th>
-                                                        <th>GPA</th>
+                                                        <th>Grade</th>
                                                         <th>Retake</th>
                                                         <th>Back Log</th>
-                                                        <th>Created at</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
@@ -66,14 +69,13 @@
                                                         <tr>
                                                             <td>{{$i+1}}</td>
                                                             <td>{{$item->student->s_id}}</td>
-                                                            <td>{{$item->levelterm->levelterm}}</td>
                                                             <td>{{$item->course->c_code}}</td>
+                                                            <td>{{$item->course->credit}}</td>
                                                             <td>{{$item->faculty->name}}</td>
                                                             <td>{{$item->semester->semester}}</td>
                                                             <td>{{$item->gpa}}</td>
-                                                            <td>{{$item->retake}}</td>
-                                                            <td>{{$item->backlog}}</td>
-                                                            <td>{{$item->created_at}}</td>
+                                                            <td>@if($item->retake == 0)No @endif @if($item->retake == 1)Yes @endif</td>
+                                                            <td>@if($item->backlog == 0)No @endif @if($item->backlog == 1)Yes @endif</td>
                                                             <td>
                                                                 <a href="{{ route('result.edit',$item->id) }}" class="btn btn-warning btn-sm m-1 text-white" type="button" title="Edit Result">
                                                                     <i class="text-20 i-Edit" title="Edit"></i>
@@ -90,14 +92,13 @@
                                                     <tr>
                                                         <th>#SL</th>
                                                         <th>Name</th>
-                                                        <th>Level Term</th>
                                                         <th>Course Code</th>
+                                                        <th>Credit</th>
                                                         <th>Taken By</th>
                                                         <th>Semester</th>
                                                         <th>GPA</th>
                                                         <th>Retake</th>
                                                         <th>Back Log</th>
-                                                        <th>Created at</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </tfoot>

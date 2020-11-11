@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Notice extends Model
 {
     protected $filleable = [
-        'title', 'text', 'photo', 'documents',
+        'title', 'text', 'photo', 'documents','all',
     ];
     public static $insertRoles = [
         'title' => 'required',

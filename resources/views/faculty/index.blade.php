@@ -46,6 +46,7 @@
                                         <a class="text-default collapsed btn btn-primary" data-toggle="collapse" href="#accordion-item-group1" aria-expanded="false">
                                             Add New
                                         </a>
+
                                 </div>
                                 <div class="collapse" id="accordion-item-group1" data-parent="#accordionExample" style="">
                                     <div class="card-body">
@@ -104,6 +105,9 @@
                                             <div class="row">
                                                 <div class="col-md-1 mt-3 mt-md-0">
                                                     <button class="btn btn-primary" type="submit">Create</button>
+                                                </div>
+                                                <div class="col-md-1 mt-3 mt-md-0">
+                                                    <a href="{{ route('import.view') }}" class="btn btn-primary" type="submit">Import</a>
                                                 </div>
                                             </div>
                                         </form>

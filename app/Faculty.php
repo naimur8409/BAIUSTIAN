@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Faculty extends Model
 {
-    protected $filleable = [
+    protected $fillable = [
         'f_id', 'name', 'email', 'password', 'address', 'designation', 'phone', 'photo', 'joining_date',
-        'blood_group',
+        'blood_group','status',
     ];
 
     public static $insertRoles = [
@@ -17,4 +17,8 @@ class Faculty extends Model
         'email' => 'required',
         'password' => 'required',
     ];
+
+    public function courses(){
+		return $this->belongsToMany(Course::class,'course_faculty');
+	}
 }

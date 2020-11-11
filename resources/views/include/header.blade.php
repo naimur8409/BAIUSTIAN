@@ -1,6 +1,6 @@
 <div class="main-header">
             <div class="logo">
-                <img src="../../dist-assets/images/logo.png" alt="">
+                <img src="{{ asset('images/baiust.png') }}" alt="">
             </div>
             <div class="menu-toggle">
                 <div></div>
@@ -17,12 +17,19 @@
                 <!-- User avatar dropdown -->
                 <div class="dropdown">
                     <div class="user col align-self-end">
-                        <p id="userDropdown" alt="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Menu</p>
+                        <h5 class="btn btn-round" id="userDropdown" alt="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                            <img class="profile-picture avatar-lg mb-2" src="{{ asset('images/students/demo.png') }}" alt="">
+
+
+
+
+
+                            {{ Auth::user()->name }}</h5 class="btn btn-round">
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                             <div class="dropdown-header">
-                                <i class="i-Lock-User mr-1"></i> {{Auth::user()->name}}
                             </div>
-                            <a class="dropdown-item">Account settings</a>
+                            <a href="{{ route('user.profile') }}" class="dropdown-item">Chnage Password</a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

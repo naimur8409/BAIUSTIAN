@@ -1,14 +1,14 @@
 @extends('layouts.master')
-@section('title','RESULT')
+@section('title','Notice')
         @section('main-content')
             <div class="main-content-wrap sidenav-open d-flex flex-column">
                 <!-- ============ Body content start ============= -->
                 <div class="main-content">
                     <div class="breadcrumb">
-                        <h1>CT Result</h1>
+                        <h1>BAIUSTIAN</h1>
                         <ul>
                             <li><a href="{{route('home')}}">Dashboard</a></li>
-                            <li>CT Result</li>
+                            <li>Notice</li>
                         </ul>
                     </div>
 
@@ -54,7 +54,8 @@
                                                 <div class="row">
 
                                                     <div class="col-md-12 mb-2" >
-                                                        <select name="semester_id" class="form-control" required>
+                                                        <select name="semester_id" class="form-control" id="select2" required
+                                                        style="width:100%">
                                                             <option >Select Batch</option>
                                                             @foreach ($semesters as $sem)
                                                                 <option value="{{$sem->id}}">{{$sem->semester}}</option>
@@ -75,8 +76,9 @@
 
 
 
-                                                    <div class="col-md-6 mt-2">
-                                                        <label for="">Result DOC</label>
+
+                                                    <div class="col-md-12 mt-2">
+                                                        <label for="">Upload DOC</label>
                                                         <div class="input-group mb-3">
                                                             <div class="input-group-prepend"><span class="input-group-text" id="inputGroupFileAddon02">Upload</span></div>
                                                             <div class="custom-file">
@@ -86,6 +88,13 @@
                                                         </div>
 
                                                     </div>
+                                                    {{-- <div class="col-md-6 mt-2">
+                                                        <div class="input-group">
+                                                        <label class="switch pr-5 switch-warning mr-3"><span>For All</span>
+                                                            <input type="checkbox" ><span class="slider"></span>
+                                                        </label>
+                                                        </div>
+                                                    </div> --}}
 
 
 

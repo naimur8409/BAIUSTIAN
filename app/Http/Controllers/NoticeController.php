@@ -17,8 +17,9 @@ class NoticeController extends Controller
     {
          $users = Student::all()->where('email',Auth::user()->email)->first();
         $id =  $users->semester_id;
-        $notices = Notice::latest()->get()->where('semester_id', $id);
-        return view ( ' notice.index', compact('notices'));
+        $batch_notices = Notice::latest()->get()->where('semester_id', $id);
+        $general_notices = Notice::latest()->get()->where('semester_id', 14);
+        return view ( ' notice.index', compact('general_notices','batch_notices'));
     }
 
     /**

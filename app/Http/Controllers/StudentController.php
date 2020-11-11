@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\StudentImport;
+// use App\Exports\FacultyExport;
 use App\Student;
 use App\Levelterm;
 use App\Semester;
@@ -180,6 +183,12 @@ class StudentController extends Controller
         $levelTerms = LevelTerm::all();
         $semesters = Semester::all();
         return view('student.batch', compact('datas','levelTerms','semesters'));
+    }
+    public function import()
+    {
+        Excel::import(new StudentImport,request()->file('file'));
+        session()->flash('success',"Student data added successfully");
+        return back();
     }
 
 

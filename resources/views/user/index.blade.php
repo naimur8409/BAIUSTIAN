@@ -5,7 +5,7 @@
             <!-- ============ Body content start ============= -->
             <div class="main-content">
                 <div class="breadcrumb">
-                    <h1>Faculty</h1>
+                    <h1>BAIUSTIAN</h1>
                     <ul>
                         <li><a href="{{route('home')}}">Dashboard</a></li>
                         <li>User List</li>
@@ -102,6 +102,7 @@
                                                     <th>#SL</th>
                                                     <th>Name</th>
                                                     <th>Email</th>
+                                                    <th>Role</th>
                                                     <th>Created at</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -112,6 +113,13 @@
                                                     <td>{{$i+1}}</td>
                                                     <td>{{$item->name}}</td>
                                                     <td>{{$item->email}}</td>
+                                                    <td>
+                                                        @forelse ($item->roles as $role)
+                                                            {{ $role->name }}
+                                                        @empty
+
+                                                        @endforelse
+                                                    </td>
                                                     <td>{{$item->created_at}}</td>
                                                     <td>
                                                         <button class="btn btn-warning btn-sm m-1 text-white" data-toggle="modal" data-target="#update" type="button" onclick="editForm({{ $item }})" title="Edit User">
@@ -130,6 +138,7 @@
                                                     <th>#SL</th>
                                                     <th>Name</th>
                                                     <th>Email</th>
+                                                    <th>Role</th>
                                                     <th>Created at</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -146,12 +155,12 @@
 
             </div>
 
-                                                        {{-- =============== Update Semester Modal========= --}}
+                                                        {{-- =============== Update user Modal========= --}}
             <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle-2" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalCenterTitle-2"> Update Semester</h5>
+                            <h5 class="modal-title" id="exampleModalCenterTitle-2"> Update User</h5>
                             <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                         </div>
                         <div class="modal-body">
@@ -173,6 +182,19 @@
                                             <div class="col-sm-10">
                                                 <label for="">Email</label>
                                                 <input name="email" id="email" value="" class="form-control" type="email">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-sm-10">
+
+                                                <label for="">Role</label>
+                                                <select name="role_id" class="form-control" id="role" required>
+                                                    <option value="">Select Role</option>
+                                                    @foreach ($roles as $item)
+                                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
 

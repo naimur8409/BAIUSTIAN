@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ResultImport;
 use App\Levelterm;
 use App\Course;
 use App\Student;
@@ -117,9 +118,52 @@ class ResultController extends Controller
 
     public function myResult(){
 
+         $student = Student::where('email',auth()->user()->email)->get();
+         $id = $student->pluck('id');
         $levelterms = Levelterm::all();
-        $datas = Result::all()->where('student_id', auth()->user()->id);
-        return view('result.myResult', compact('levelterms','datas'));
+
+         $datas = Result::where('student_id', $id )->get();
+         $check =  $datas->pluck('id')->first();
+        if(!empty($check)){
+         $t_gpa = $datas->pluck('gpa')->sum();
+        $n = $datas->pluck('course_id')->count();
+            for($i=0; $i<$n ;$i++){
+
+            $id = $datas->pluck('course_id');
+             $course = Course::find($id);
+            }
+            $t_credit = $course->pluck('credit')->sum();
+            $gpa = round($t_gpa/$t_credit,2);
+        return view('result.myResult', compact('levelterms','datas','gpa'));
+        }
+        else{
+                session()->flash('error',"No result found");
+                return redirect()->back();
+            }
+    }
+
+    public function my_details_result($id){
+        $student = Student::where('email',auth()->user()->email)->get();
+        $s_id = $student->pluck('id');
+        $lt = LevelTerm::find($id);
+        $results = Result::where('student_id', $s_id )->where('levelterm_id',$id)->get();
+        $check =  $results->pluck('id')->first();
+        if(!empty($check)){
+         $t_gpa = $results->pluck('gpa')->sum();
+        $n = $results->pluck('course_id')->count();
+            for($i=0; $i<$n ;$i++){
+
+            $id = $results->pluck('course_id');
+             $course = Course::find($id);
+            }
+            $t_credit = $course->pluck('credit')->sum();
+            $gpa = round($t_gpa/$t_credit,2);
+        return view('result.myResultDetails', compact('lt','results','gpa', 't_credit'));
+    }
+        else{
+                session()->flash('error',"Not Eligible");
+                return redirect()->back();
+            }
     }
 
 
@@ -134,9 +178,32 @@ class ResultController extends Controller
     public function student_result($id,$semester_id){
 
         // $semesters = Semester::all();
+        // return $check = Result::where('student_id', $id)->get();
         $datas = Result::all()->where('student_id', $id)->where('semester_id', $semester_id);
-        // return $datas;
-        return view('result.student_result', compact('datas'));
+
+        $check =  $datas->pluck('id')->first();
+        if(!empty($check)){
+            $lt = $datas->pluck('levelterm')->first();
+            $t_gpa = $datas->pluck('gpa')->sum();
+            $n = $datas->pluck('course_id')->count();
+            for($i=0; $i<$n ;$i++){
+
+            $id = $datas->pluck('course_id');
+             $course = Course::find($id);
+            }
+             $t_credit = $course->pluck('credit')->sum();
+            $gpa = round($t_gpa/$t_credit,2);
+
+            return view('result.student_result', compact('datas','gpa','lt'));
+        }
+        else{
+            $gpa = '';
+            return view('result.student_result', compact('datas','gpa'));
+        }
+
+        // foreach($datas as $d){
+        //     echo $d['gpa']."<br>";
+        // }
     }
 
     public function ct_result()
@@ -170,21 +237,28 @@ class ResultController extends Controller
 
 
 
-    if (isset($_FILES['documents'])) {
-        $file = $request->file('documents');
-        $name = $file->getClientOriginalName();
-        $file->move('images/results', $name);
+        if (isset($_FILES['documents'])) {
+            $file = $request->file('documents');
+            $name = $file->getClientOriginalName();
+            $file->move('images/results', $name);
 
 
-        $result->documents = $name;
+            $result->documents = $name;
+        }
+
+        $status = $result->save();
+        if($status){
+
+            session()->flash('success',"NOTICE created successfully");
+            return redirect()->back();
+        }
+
     }
 
-    $status = $result->save();
-    if($status){
-
-        session()->flash('success',"NOTICE created successfully");
-        return redirect()->back();
-    }
-
+    public function import()
+    {
+        Excel::import(new ResultImport,request()->file('file'));
+        session()->flash('success',"Course data added successfully");
+        return back();
     }
 }

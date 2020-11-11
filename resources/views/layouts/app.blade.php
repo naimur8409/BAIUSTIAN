@@ -18,8 +18,13 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        body{
+            ;
+        }
+    </style>
 </head>
-<body>
+<body style="background-image: {{asset('images/baiust.png')}};">
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">

@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Student extends Model
 {
-    protected $filleable = [
+    protected $fillable = [
         's_id', 'name', 'email','password', 'address', 'phone', 'photo', 'status',
-        'blood_group', 'level_term_id', 'semester_id', 'result_id',
+        'blood_group', 'levelterm_id', 'semester_id', 'result_id',
     ];
 
     public static $insertRoles = [
@@ -24,5 +24,9 @@ class Student extends Model
 
     public function levelterm(){
         return $this->belongsTo('App\Levelterm');
+    }
+
+    public function courses(){
+		return $this->belongsToMany(Course::class,'course_student');
     }
 }
